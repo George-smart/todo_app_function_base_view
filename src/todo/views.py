@@ -12,17 +12,8 @@ def index(request):
     if request.method == "POST":
         form_class = TodoForm(request.POST)
         if form_class.is_valid():
-            try:            
-                completed = request.POST['is_complete']
-                if completed == 'on':
-                    completed = True
-                else:
-                    completed = False
-            except:
-                completed = False
             todoApp = form_class.save(commit=False)
             todoApp.user = request.user
-            todoApp.is_complete = completed
             todoApp.save()
             
             return redirect('/')
